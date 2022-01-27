@@ -9,20 +9,6 @@ const Home = () => {
 	const [alert, setAlert] = useState(null);
 	const [user, setUser] = useState([]);
 
-	const searchUsers = async (enteredSearch) => {
-		setLoading(true);
-		const client_id = 'd9308aacf8b204d361fd';
-		const client_secret = '84969aeef73956f4ec9e8716d1840532802bb81b';
-		axios
-			.get(
-				`https://api.github.com/search/users?q=${enteredSearch}&client_id=${client_id}&client_secret=${client_secret}`
-			)
-			.then((res) => {
-				setUsers(res.data.items);
-				setLoading(false);
-			});
-	};
-
 	const getUser = async (username) => {
 		setLoading(true);
 		const client_id = 'd9308aacf8b204d361fd';
@@ -53,7 +39,6 @@ const Home = () => {
 		<>
 			{alert !== null && <Alert alert={alert} />}
 			<Search
-				searchUsers={searchUsers}
 				clearUsers={clearUsers}
 				showClear={users.length > 0 ? true : false}
 				setAlert={setAlertMessage}

@@ -1,14 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
+import GithubContext from '../../context/github/GithubContext';
 
 const Search = (props) => {
 	const searchInputRef = useRef();
+	const githubctx = useContext(GithubContext);
 
 	const searchUsers = (event) => {
 		event.preventDefault();
 		const enteredSearch = searchInputRef.current.value;
 		if (enteredSearch === '') props.setAlert('Search cannot be empty', 'light');
 		else {
-			props.searchUsers(enteredSearch);
+			githubctx.searchUsers(enteredSearch);
 			searchInputRef.current.value = '';
 		}
 	};
