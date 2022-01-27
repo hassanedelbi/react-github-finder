@@ -1,7 +1,11 @@
 import React from 'react';
 
-const Alert = () => {
-	return <div>Alert</div>;
+const Alert = ({ alert }) => {
+	return (
+		<div className={`alert alert-${alert.type}`}>
+			<i className='fas fa-info-circle' />
+			{alert.msg}
+		</div>
+	);
 };
-
 export default Alert;
