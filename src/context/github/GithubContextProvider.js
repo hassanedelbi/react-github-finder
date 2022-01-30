@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useReducer, createContext } from 'react';
+import React, { useReducer } from 'react';
 import GithubReducer from './GithubReducer';
 import GithubContext from './GithubContext';
 import {
