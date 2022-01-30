@@ -20,8 +20,16 @@ const GithubContextProvider = (props) => {
 
 	const [state, dispatch] = useReducer(GithubReducer, initialState);
 
-	const client_id = 'd9308aacf8b204d361fd';
-	const client_secret = '84969aeef73956f4ec9e8716d1840532802bb81b';
+	let client_id;
+	let client_secret;
+
+	if (process.env.NODE_ENV !== 'production') {
+		client_id = process.env.REACT_APP_GITHUB_CLIENT_ID;
+		client_secret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+	} else {
+		client_id = process.env.GITHUB_CLIENT_ID;
+		client_secret = process.env.GITHUB_CLIENT_SECRET;
+	}
 
 	const searchUsers = async (enteredSearch) => {
 		setLoading();
