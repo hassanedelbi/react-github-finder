@@ -7,24 +7,27 @@ import About from './components/pages/About';
 import NotFound from './components/pages/NotFound';
 import User from './components/users/User';
 import GithubContextProvider from './context/github/GithubContextProvider';
+import { AlertContextProvider } from './context/alert/AlertContext';
 
 function App() {
 	return (
 		<div className='App'>
 			<GithubContextProvider>
-				<Router>
-					<div className='App'>
-						<Navbar />
-						<div className='container'>
-							<Routes>
-								<Route path='/' element={<Home />} />
-								<Route path='/about' element={<About />} />
-								<Route path='/user/:login' element={<User />} />
-								<Route element={<NotFound />} />
-							</Routes>
+				<AlertContextProvider>
+					<Router>
+						<div className='App'>
+							<Navbar />
+							<div className='container'>
+								<Routes>
+									<Route path='/' element={<Home />} />
+									<Route path='/about' element={<About />} />
+									<Route path='/user/:login' element={<User />} />
+									<Route element={<NotFound />} />
+								</Routes>
+							</div>
 						</div>
-					</div>
-				</Router>
+					</Router>
+				</AlertContextProvider>
 			</GithubContextProvider>
 		</div>
 	);

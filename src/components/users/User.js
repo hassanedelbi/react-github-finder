@@ -1,21 +1,36 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import GithubContext from '../../context/github/GithubContext';
+import Spinner from '../layout/Spinner';
+import ReposList from '../repos/ReposList';
 
-const User = ({
-	name,
-	company,
-	avatar_url,
-	location,
-	bio,
-	blog,
-	login,
-	html_url,
-	followers,
-	following,
-	public_repos,
-	public_gists,
-	hireable,
-}) => {
+const User = ({ match }) => {
+	const { login } = useParams();
+	const githubContext = useContext(GithubContext);
+	const { getUser, getUserRepos, loading, user, repos } = githubContext;
+	const {
+		name,
+		company,
+		avatar_url,
+		location,
+		bio,
+		blog,
+		html_url,
+		followers,
+		following,
+		public_repos,
+		public_gists,
+		hireable,
+	} = user;
+
+	useEffect(() => {
+		getUser(login);
+		getUserRepos(login);
+		// eslint-disable-next-line
+	}, []);
+
+	if (loading) return <Spinner />;
+
 	return (
 		<>
 			<Link to='/' className='btn btn-light'>
@@ -81,6 +96,7 @@ const User = ({
 				<div className='badge badge-light'>Public Repos: {public_repos}</div>
 				<div className='badge badge-dark'>Public Gists: {public_gists}</div>
 			</div>
+			<ReposList repos={repos} />
 		</>
 	);
 };

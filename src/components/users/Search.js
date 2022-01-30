@@ -1,16 +1,19 @@
 import React, { useContext, useRef } from 'react';
+import AlertContext from '../../context/alert/AlertContext';
 import GithubContext from '../../context/github/GithubContext';
 
-const Search = (props) => {
+const Search = () => {
+	const githubContext = useContext(GithubContext);
+	const alertContext = useContext(AlertContext);
 	const searchInputRef = useRef();
-	const githubctx = useContext(GithubContext);
 
 	const searchUsers = (event) => {
 		event.preventDefault();
 		const enteredSearch = searchInputRef.current.value;
-		if (enteredSearch === '') props.setAlert('Search cannot be empty', 'light');
+		if (enteredSearch === '')
+			alertContext.setAlert('Search cannot be empty', 'light');
 		else {
-			githubctx.searchUsers(enteredSearch);
+			githubContext.searchUsers(enteredSearch);
 			searchInputRef.current.value = '';
 		}
 	};
@@ -29,8 +32,11 @@ const Search = (props) => {
 					className='btn btn-dark btn-block'
 				/>
 			</form>
-			{props.showClear && (
-				<button className='btn btn-light btn-block' onClick={props.clearUsers}>
+			{githubContext.users.length > 0 && (
+				<button
+					className='btn btn-light btn-block'
+					onClick={githubContext.clearUsers}
+				>
 					Clear
 				</button>
 			)}

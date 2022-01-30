@@ -249,8 +249,8 @@ img {
 .bg-primary,
 .badge-primary,
 .alert-primary {
-	background: var(--primary-color);
-	color: #fff;
+	background: var(--dark-color);
+	color: gold;
 }
 
 .btn-light,
